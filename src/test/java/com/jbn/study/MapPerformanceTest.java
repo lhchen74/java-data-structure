@@ -2,6 +2,7 @@ package com.jbn.study;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.jbn.study.utils.FileOperation;
 
@@ -15,12 +16,14 @@ public class MapPerformanceTest {
 
     private Map<String, Integer> bstMap;
     private Map<String, Integer> linkedListMap;
-    private String filename = "D:/study/java/datastructure/src/test/java/com/jbn/study/ATaleofTwoCities.txt";
+    private Map<String, Integer> avlTreeMap;
+    private String filename = "/Users/jbn/Documents/study/java/java-data-structure/src/test/java/com/jbn/study/ATaleofTwoCities.txt";
 
     @Before
     public void init() {
         bstMap = new BSTMap<>();
         linkedListMap = new LinkedListMap<>();
+        avlTreeMap = new AVLTree<>();
     }
 
     public double calcTime(Map<String, Integer> map) {
@@ -29,6 +32,8 @@ public class MapPerformanceTest {
         ArrayList<String> words = new ArrayList<>();
         FileOperation.readFileWordToArray(filename, words);
         System.out.println("ArrayList size: " + words.size());
+        
+        Collections.sort(words);
 
         for (String word : words) {
             if (map.contains(word)) {
@@ -51,5 +56,8 @@ public class MapPerformanceTest {
 
         double bstMapCost = calcTime(bstMap);
         System.out.println("BSTMap cost: " + bstMapCost + " s");
+
+        double avlTreeMapCost = calcTime(avlTreeMap);
+        System.out.println("AVLTreeMapCost cost: " + avlTreeMapCost + " s");
     }
 }
